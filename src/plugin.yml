@@ -1,0 +1,11 @@
+name: RRPGSocial
+version: 0.0.1
+authors: [ShawnClake, QuinnBast]
+main: com.openrubicon.social.RRPGSocial
+depend: [RRPGCore]
+database: true
+website: https://github.com/OpenRubiconProject
+commands:
+      rrpg-social:
+               description: Spits out the current status of Rubicon Social and its versions
+               usage: /rrpg-social
