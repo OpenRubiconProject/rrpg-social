@@ -129,7 +129,13 @@ public class Friend implements DatabaseModel {
     public boolean insertFriendRequest(Connection connection){
         String query = "INSERT INTO `rubicon_players` (`player1_id`, `player2_id`, `bff`, `state`) VALUES (:player1_id, :player2_id, :bff, :state)";
 
-        connection.get().createQuery(query).bind(this).executeUpdate();
+        this.id = (Integer)connection.get().createQuery(query, true).bind(this).executeUpdate().getKey();
+        return true;
+    }
+
+    public boolean save(Connection connection)
+    {
+        connection.get().createQuery("UPDATE `rubicon_players` SET `bff`=:bff, `state`=:state, updated_at=:updated_at, deleted_at=:deleted_at WHERE id=:id").bind(this).executeUpdate();
         return true;
     }
 
