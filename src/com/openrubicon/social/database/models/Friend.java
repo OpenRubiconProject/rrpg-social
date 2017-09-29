@@ -2,14 +2,14 @@ package com.openrubicon.social.database.models;
 
 import com.openrubicon.core.database.Connection;
 import com.openrubicon.core.database.interfaces.DatabaseMigration;
-import com.openrubicon.core.database.interfaces.DatabaseModel;
+import com.openrubicon.core.database.DatabaseModel;
 import com.openrubicon.social.database.migrations.CreateFriends;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-public class Friend implements DatabaseModel {
+public class Friend extends DatabaseModel {
 
     private int id;
     private int player1_id;
@@ -22,6 +22,13 @@ public class Friend implements DatabaseModel {
 
     private String tableName = "rubicon_players";
     private int version = 1;
+
+    public Friend() {
+    }
+
+    public Friend(Connection connection) {
+        super(connection);
+    }
 
     public int getId() {
         return id;
@@ -93,9 +100,6 @@ public class Friend implements DatabaseModel {
 
     public void setVersion(int version) {
         this.version = version;
-    }
-
-    public Friend() {
     }
 
     public boolean setBestFriend(Connection connection)
