@@ -1,7 +1,9 @@
 package com.openrubicon.social;
 
 import com.openrubicon.core.RRPGCore;
-import com.openrubicon.core.database.interfaces.DatabaseModel;
+import com.openrubicon.core.api.command.Command;
+import com.openrubicon.core.api.database.interfaces.DatabaseModel;
+import com.openrubicon.social.commands.FriendAdd;
 import org.bukkit.plugin.java.JavaPlugin;
 import com.openrubicon.core.interfaces.Module;
 
@@ -21,6 +23,13 @@ public class RRPGSocial extends JavaPlugin implements Module {
     }
 
     @Override
+    public ArrayList<Command> getCommands() {
+        ArrayList<Command> models = new ArrayList<>();
+        models.add(new FriendAdd());
+        return models;
+    }
+
+    @Override
     public String getKey() {
         return "rrpg-social";
     }
@@ -35,10 +44,10 @@ public class RRPGSocial extends JavaPlugin implements Module {
         return this.getDataFolder().getAbsolutePath();
     }
 
-    public ArrayList<DatabaseModel> getDatabaseModels(){
-        ArrayList<DatabaseModel> Models = new ArrayList<DatabaseModel>();
-        //Add all database Models to send to the core plugin. This will check if tables have been made.
-        Models.add(new Friend());
-        return Models;
+    @Override
+    public ArrayList<DatabaseModel> getDatabaseModels() {
+        ArrayList<DatabaseModel> models = new ArrayList<>();
+        models.add(new Friend());
+        return models;
     }
 }
