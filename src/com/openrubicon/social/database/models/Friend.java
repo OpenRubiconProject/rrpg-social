@@ -1,8 +1,8 @@
 package com.openrubicon.social.database.models;
 
-import com.openrubicon.core.database.Connection;
-import com.openrubicon.core.database.interfaces.DatabaseMigration;
-import com.openrubicon.core.database.DatabaseModel;
+import com.openrubicon.core.api.database.Connection;
+import com.openrubicon.core.api.database.DatabaseModel;
+import com.openrubicon.core.api.database.interfaces.DatabaseMigration;
 import com.openrubicon.social.database.migrations.CreateFriends;
 
 import java.util.Date;

@@ -1,7 +1,8 @@
 package com.openrubicon.social.database.migrations;
 
-import com.openrubicon.core.database.Connection;
-import com.openrubicon.core.database.interfaces.DatabaseMigration;
+import com.openrubicon.core.api.database.Connection;
+import com.openrubicon.core.api.database.interfaces.DatabaseMigration;
+
 
 public class CreateFriends implements DatabaseMigration {
 
