@@ -8,17 +8,17 @@ public class CreateFriends implements DatabaseMigration {
 
     @Override
     public boolean up(Connection connection) {
-        connection.createTable("CREATE TABLE IF NOT EXISTS `rubicon_friends` (\n" +
+        connection.createTable("CREATE TABLE `rubicon_friends` (\n" +
                 " `id` int(11) NOT NULL AUTO_INCREMENT,\n" +
-                " `player1_id` int(11) NOT NULL,\n" +
-                " `player2_id` int(11) NOT NULL,\n" +
+                " `player1_id` varchar(128) NOT NULL,\n" +
+                " `player2_id` varchar(128) NOT NULL,\n" +
                 " `bff` tinyint(4) NOT NULL DEFAULT '0',\n" +
-                " `state` mediumint(9) DEFAULT '1',\n" +
+                " `state` varchar(20) DEFAULT '1',\n" +
                 " `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\n" +
                 " `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\n" +
                 " `deleted_at` datetime DEFAULT NULL,\n" +
                 " PRIMARY KEY (`id`)\n" +
-                ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+                ") ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4");
         return true;
     }
 
