@@ -7,6 +7,7 @@ import com.openrubicon.core.api.interactables.enums.InteractableType;
 import com.openrubicon.social.RRPGSocial;
 import com.openrubicon.social.classes.SocialProfile;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 
 import java.util.ArrayList;
 
@@ -30,7 +31,7 @@ public class FriendAdd extends Command {
 
         Player thePlayer = (Player) interactable;
         //Check friend list here.
-        SocialProfile s= (SocialProfile) RRPGSocial.social.getHashMap().get(thePlayer.getPlayer());
+        SocialProfile s= (SocialProfile) RRPGSocial.social.getHashMap().get((OfflinePlayer)thePlayer.getPlayer());
         if(strings.length == 1){
             s.sendRequest(Bukkit.getPlayer(strings[0]));
         } else if (strings.length == 2) {

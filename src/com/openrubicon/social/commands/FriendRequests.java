@@ -32,12 +32,7 @@ public class FriendRequests extends Command {
 
         Player thePlayer = (Player) interactable;
 
-
-        if(strings.length == 1) {
-            SocialProfile s= (SocialProfile) RRPGSocial.social.getHashMap().get(thePlayer.getPlayer());
-            s.listRequests();
-        } else {
-            thePlayer.getPlayer().sendMessage("Incorrect usage for /friend requests");
-        }
+        SocialProfile s= (SocialProfile) RRPGSocial.social.getHashMap().get(thePlayer.getPlayer());
+        s.listRequests();
     }
 }

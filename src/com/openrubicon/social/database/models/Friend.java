@@ -19,10 +19,10 @@ public class Friend extends DatabaseModel<Friend> {
     private boolean bff;
     private String state;
     private Date created_at;
-    private Date modified_at;
+    private Date updated_at;
     private Date deleted_at;
 
-    private String tableName = "rubicon_players";
+    private String tableName = "rubicon_friends";
     private int version = 1;
 
     public Friend() {
@@ -34,7 +34,7 @@ public class Friend extends DatabaseModel<Friend> {
         this.bff = bff;
         this.state = state.toString();
         this.created_at = new Date();
-        this.modified_at = new Date();
+        this.updated_at = new Date();
     }
 
     public Friend(Connection connection) {
@@ -89,12 +89,12 @@ public class Friend extends DatabaseModel<Friend> {
         this.created_at = created_at;
     }
 
-    public Date getModified_at() {
-        return modified_at;
+    public Date getUpdated_at() {
+        return updated_at;
     }
 
-    public void setModified_at(Date modified_at) {
-        this.modified_at = modified_at;
+    public void setUpdated_at(Date updated_at) {
+        this.updated_at = updated_at;
     }
 
     public Date getDeleted_at() {
@@ -121,14 +121,14 @@ public class Friend extends DatabaseModel<Friend> {
         if (this.count("id").where("((`player1_id` = :player1_id AND `player2_id` = :player2_id) OR (`player1_id` = :player2_id AND `player2_id` = :player1_id))").whereNotDeleted().executeCount() > 0)
             return false;
         else{
-            this.insert("player1_id, player2_id, bff, state, created_at, modified_at",":player1_id, :player2_id, :bff, :state, :created_at, :modified_at").executeInsert();
+            this.insert("player1_id, player2_id, bff, state, created_at, updated_at",":player1_id, :player2_id, :bff, :state, :created_at, :updated_at").executeInsert();
             return true;
         }
     }
 
     public boolean updateState(){
-        this.modified_at = new Date();
-        this.update().set("state", ":state").andSet("modified_at", ":modified_at").where("id = :id").executeUpdate();
+        this.updated_at = new Date();
+        this.update().set("state", ":state").andSet("updated_at", ":updated_at").where("id = :id").executeUpdate();
         return true;
     }
 
