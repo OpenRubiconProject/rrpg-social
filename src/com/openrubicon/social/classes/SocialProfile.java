@@ -287,7 +287,7 @@ public class SocialProfile {
         Friend model = new Friend();
         model.setPlayer2_id(p2.getUniqueId().toString());
         model.setPlayer1_id(user.getUniqueId().toString());
-        model.selectRelation();
+        model = model.selectRelation();
         return model;
     }
 }

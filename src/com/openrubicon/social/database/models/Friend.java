@@ -5,6 +5,7 @@ import com.openrubicon.core.api.database.DatabaseModel;
 import com.openrubicon.core.api.database.interfaces.DatabaseMigration;
 import com.openrubicon.social.Enums.RelationState;
 import com.openrubicon.social.database.migrations.CreateFriends;
+import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
 import java.util.Date;
@@ -114,11 +115,24 @@ public class Friend extends DatabaseModel<Friend> {
     }
 
     public Friend selectRelation(){
-        return this.select("*").where("deleted_at IS NULL AND ((player1_id = :player1_id AND player2_id = :player2_id) OR (player1_id = :player2_id AND player2_id = :player1_id").executeFetch(Friend.class).get(0);
+        Bukkit.broadcastMessage("id: " + id +
+                "player1_id:" + player1_id +
+                "player2_id: " + player2_id +
+                "bff: " + bff +
+                "state: " + state);
+
+        return this.select("*").where("((`player1_id` = :player1_id AND `player2_id` = :player2_id) OR (`player1_id` = :player2_id AND `player2_id` = :player1_id))").executeFetch(Friend.class).get(0);
     }
 
     public boolean insertInto(){
-        if (this.count("id").where("((`player1_id` = :player1_id AND `player2_id` = :player2_id) OR (`player1_id` = :player2_id AND `player2_id` = :player1_id))").whereNotDeleted().executeCount() > 0)
+
+        Bukkit.broadcastMessage("id: " + id +
+                "player1_id:" + player1_id +
+                "player2_id: " + player2_id +
+                "bff: " + bff +
+                "state: " + state);
+
+        if (this.count("id").where("((`player1_id` = :player1_id AND `player2_id` = :player2_id) OR (`player1_id` = :player2_id AND `player2_id` = :player1_id))").executeCount() > 0)
             return false;
         else{
             this.insert("player1_id, player2_id, bff, state, created_at, updated_at",":player1_id, :player2_id, :bff, :state, :created_at, :updated_at").executeInsert();
