@@ -18,7 +18,7 @@ public class Friend extends DatabaseModel<Friend> {
     private String player1_id;
     private String player2_id;
     private boolean bff;
-    private String state;
+    private RelationState state;
     private Date created_at;
     private Date updated_at;
     private Date deleted_at;
@@ -33,7 +33,7 @@ public class Friend extends DatabaseModel<Friend> {
         this.player1_id = p1.getUniqueId().toString();
         this.player2_id = p2.getUniqueId().toString();
         this.bff = bff;
-        this.state = state.toString();
+        this.state = state;
         this.created_at = new Date();
         this.updated_at = new Date();
     }
@@ -75,11 +75,11 @@ public class Friend extends DatabaseModel<Friend> {
     }
 
     public RelationState getState() {
-        return RelationState.fromString(state);
+        return state;
     }
 
     public void setState(RelationState state) {
-        this.state = state.toString();
+        this.state = state;
     }
 
     public Date getCreated_at() {
