@@ -10,10 +10,13 @@ import org.bukkit.Bukkit;
 
 import java.util.ArrayList;
 
-public class FriendAdd extends Command {
+/**
+ * Created by Quinn on 9/30/2017.
+ */
+public class FriendSendItem extends Command {
     @Override
     public String getCommandFormat() {
-        return "friend add $";
+        return "friend item send $";
     }
 
     @Override
@@ -29,16 +32,19 @@ public class FriendAdd extends Command {
             return;
 
         Player thePlayer = (Player) interactable;
-        //Check friend list here.
+
+
         SocialProfile s= (SocialProfile) RRPGSocial.social.getHashMap().get(thePlayer.getPlayer());
-        if(strings.length == 1){
-            s.sendRequest(Bukkit.getPlayer(strings[0]));
-        } else if (strings.length == 2) {
-            if(strings[0].equals("best")) {
-                s.sendBestRequest(Bukkit.getPlayer(strings[1]));
+        if(strings.length == 1) {
+            if(Bukkit.getPlayer(strings[0]).isOnline()) {
+                s.sendItem(Bukkit.getPlayer(strings[0]));
+                return;
             } else {
-                thePlayer.getPlayer().sendMessage("Incorrect usage for /friend add");
+                thePlayer.getPlayer().sendMessage("That player is not online.");
             }
+        } else {
+            thePlayer.getPlayer().sendMessage("Incorrect usage for /senditem [player]");
         }
+        return;
     }
 }

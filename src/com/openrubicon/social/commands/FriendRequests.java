@@ -6,14 +6,16 @@ import com.openrubicon.core.api.interactables.Player;
 import com.openrubicon.core.api.interactables.enums.InteractableType;
 import com.openrubicon.social.RRPGSocial;
 import com.openrubicon.social.classes.SocialProfile;
-import org.bukkit.Bukkit;
 
 import java.util.ArrayList;
 
-public class FriendAdd extends Command {
+/**
+ * Created by Quinn on 9/30/2017.
+ */
+public class FriendRequests extends Command {
     @Override
     public String getCommandFormat() {
-        return "friend add $";
+        return "friend requests";
     }
 
     @Override
@@ -29,16 +31,13 @@ public class FriendAdd extends Command {
             return;
 
         Player thePlayer = (Player) interactable;
-        //Check friend list here.
-        SocialProfile s= (SocialProfile) RRPGSocial.social.getHashMap().get(thePlayer.getPlayer());
-        if(strings.length == 1){
-            s.sendRequest(Bukkit.getPlayer(strings[0]));
-        } else if (strings.length == 2) {
-            if(strings[0].equals("best")) {
-                s.sendBestRequest(Bukkit.getPlayer(strings[1]));
-            } else {
-                thePlayer.getPlayer().sendMessage("Incorrect usage for /friend add");
-            }
+
+
+        if(strings.length == 1) {
+            SocialProfile s= (SocialProfile) RRPGSocial.social.getHashMap().get(thePlayer.getPlayer());
+            s.listRequests();
+        } else {
+            thePlayer.getPlayer().sendMessage("Incorrect usage for /friend requests");
         }
     }
 }

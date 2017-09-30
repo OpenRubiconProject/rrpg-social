@@ -48,7 +48,7 @@ public class Social {
         return socialHash.containsKey(p) ? true : false;
     }
     public void createPlayerAccount(OfflinePlayer p) {
-        socialHash.put(p, new SocialProfile(p.getUniqueId().toString()));
+        socialHash.put(p, new SocialProfile(p));
     }
     public void loadSocialAccounts(){
         /*try {

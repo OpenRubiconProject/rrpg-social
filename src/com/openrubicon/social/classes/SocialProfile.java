@@ -1,12 +1,14 @@
 package com.openrubicon.social.classes;
 
-import com.openrubicon.social.database.SocialDatabaseManager;
+import com.openrubicon.social.Enums.RelationState;
 import com.openrubicon.social.RRPGSocial;
+import com.openrubicon.social.database.models.Friend;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by Quinn on 9/24/2017.
@@ -189,12 +191,14 @@ public class SocialProfile {
     
     public void addRequest(OfflinePlayer p){
         this.requests.add(p);
-        SocialDatabaseManager.useFriends().insertRequestInto(this, p);
+        Friend friend = new Friend(user, p, false, RelationState.PENDING);
+        friend.insertInto();
         return;
     }
     public void addBestRequest(OfflinePlayer p){
         this.bestRequests.add(p);
-        SocialDatabaseManager.useFriends().insertRequestInto(this, p);
+        Friend friend = new Friend(user, p, true, RelationState.PENDING);
+        friend.insertInto();
         return;
     }
 
@@ -202,7 +206,8 @@ public class SocialProfile {
         for(OfflinePlayer request : requests){
             if (request.equals(p)){
                 requests.remove(p);
-                SocialDatabaseManager.useFriends().removeWhereFriendUUID(this, p);
+                Friend model = this.getRelation(p);
+                model.remove();
             }
         }
     }
@@ -210,7 +215,8 @@ public class SocialProfile {
         for(OfflinePlayer request : bestRequests){
             if (request.equals(p)){
                 bestRequests.remove(p);
-                SocialDatabaseManager.useFriends().removeWhereFriendUUID(this, p);
+                Friend model = this.getRelation(p);
+                model.remove();
             }
         }
     }
@@ -218,7 +224,8 @@ public class SocialProfile {
         friends.remove(p);
         SocialProfile friend = (SocialProfile) RRPGSocial.social.getHashMap().get(p);    //Get friend's account
         friend.removeFriend(user);
-        SocialDatabaseManager.useFriends().removeWhereFriendUUID(this, p);
+        Friend model = this.getRelation(p);
+        model.remove();
     }
     private void removeBestFriend(OfflinePlayer p){
         if(bestFriends.length == 0){
@@ -228,7 +235,8 @@ public class SocialProfile {
             for(int i=0; i<3; i++){
                 if(bestFriends[i] == p){
                     bestFriends[i] = null;
-                    SocialDatabaseManager.useFriends().removeWhereFriendUUID(this, p);
+                    Friend model = this.getRelation(p);
+                    model.remove();
                     return;
                 }
             }
@@ -245,7 +253,11 @@ public class SocialProfile {
         requests.remove(p);     //Remove the friend from your requests list
         SocialProfile friend = (SocialProfile) RRPGSocial.social.getHashMap().get(p);    //Get friend's account
         friend.addFriend(user); //Add yourself to friends account
-        SocialDatabaseManager.useFriends().updateWhereFriendUUID(this, p); //Update the database
+
+        Friend model = this.getRelation(p);
+        model.setState(RelationState.CONFIRMED);
+        model.updateState();
+
         getPlayer().sendMessage(p.getName() + " is now your friend!");
         friend.getPlayer().sendMessage(user.getName() + " is now your friend!");
 
@@ -255,7 +267,11 @@ public class SocialProfile {
         bestRequests.remove(p);     //Remove the friend from your requests list
         SocialProfile friend = (SocialProfile) RRPGSocial.social.getHashMap().get(p);    //Get friend's account
         friend.addBestFriend(user); //Add yourself to friends account
-        SocialDatabaseManager.useFriends().updateWhereFriendUUID(this, p); //Update the database
+
+        Friend model = this.getRelation(p);
+        model.setState(RelationState.CONFIRMED);
+        model.updateState();
+
         getPlayer().sendMessage(p.getName() + " is now your best friend!");
         friend.getPlayer().sendMessage(user.getName() + " is now your best friend!");
 
@@ -266,5 +282,12 @@ public class SocialProfile {
     }
     public String getUsername(){
         return user.getName().toString();
+    }
+    private Friend getRelation(OfflinePlayer p2){
+        Friend model = new Friend();
+        model.setPlayer2_id(p2.getUniqueId().toString());
+        model.setPlayer1_id(user.getUniqueId().toString());
+        model.selectRelation();
+        return model;
     }
 }
