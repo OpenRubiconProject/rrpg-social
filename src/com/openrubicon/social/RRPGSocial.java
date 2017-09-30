@@ -3,7 +3,7 @@ package com.openrubicon.social;
 import com.openrubicon.core.RRPGCore;
 import com.openrubicon.core.api.command.Command;
 import com.openrubicon.core.api.database.interfaces.DatabaseModel;
-import com.openrubicon.social.commands.FriendAdd;
+import com.openrubicon.social.commands.*;
 import org.bukkit.plugin.java.JavaPlugin;
 import com.openrubicon.core.interfaces.Module;
 
@@ -20,13 +20,18 @@ public class RRPGSocial extends JavaPlugin implements Module {
     {
         RRPGCore.modules.addModule(this);
         social = new Social(this);
+
     }
 
     @Override
     public ArrayList<Command> getCommands() {
-        ArrayList<Command> models = new ArrayList<>();
-        models.add(new FriendAdd());
-        return models;
+        ArrayList<Command> commands = new ArrayList<>();
+        commands.add(new FriendAdd());
+        commands.add(new FriendList());
+        commands.add(new FriendRemove());
+        commands.add(new FriendRequests());
+        commands.add(new FriendSendItem());
+        return commands;
     }
 
     @Override
