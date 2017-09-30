@@ -16,7 +16,7 @@ public class RRPGSocial extends JavaPlugin implements Module {
     public static Social social;
 
     @Override
-    public void onLoad()
+    public void onEnable()
     {
         RRPGCore.modules.addModule(this);
         social = new Social(this);
