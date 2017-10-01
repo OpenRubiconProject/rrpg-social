@@ -1,6 +1,6 @@
 package com.openrubicon.social.classes;
 
-import com.openrubicon.social.Enums.RelationState;
+import com.openrubicon.social.enums.RelationState;
 import com.openrubicon.social.RRPGSocial;
 import com.openrubicon.social.database.models.Friend;
 import org.bukkit.OfflinePlayer;
@@ -8,7 +8,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Created by Quinn on 9/24/2017.

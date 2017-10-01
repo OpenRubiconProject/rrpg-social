@@ -3,15 +3,12 @@ package com.openrubicon.social.database.models;
 import com.openrubicon.core.api.database.Connection;
 import com.openrubicon.core.api.database.DatabaseModel;
 import com.openrubicon.core.api.database.interfaces.DatabaseMigration;
-import com.openrubicon.social.Enums.RelationState;
+import com.openrubicon.social.enums.RelationState;
 import com.openrubicon.social.database.migrations.CreateFriends;
-import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
 public class Friend extends DatabaseModel<Friend> {
 

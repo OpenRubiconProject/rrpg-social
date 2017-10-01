@@ -3,6 +3,7 @@ package com.openrubicon.social;
 import com.openrubicon.core.RRPGCore;
 import com.openrubicon.core.api.command.Command;
 import com.openrubicon.core.api.database.interfaces.DatabaseModel;
+import com.openrubicon.core.api.database.interfaces.PostDatabaseLoad;
 import com.openrubicon.social.commands.*;
 import org.bukkit.plugin.java.JavaPlugin;
 import com.openrubicon.core.interfaces.Module;
@@ -36,6 +37,13 @@ public class RRPGSocial extends JavaPlugin implements Module {
         commands.add(new FriendRequests());
         commands.add(new FriendSendItem());
         return commands;
+    }
+
+    @Override
+    public ArrayList<PostDatabaseLoad> getPostDatabaseLoads() {
+        ArrayList<PostDatabaseLoad> loads = new ArrayList<>();
+        loads.add(social);
+        return loads;
     }
 
     @Override

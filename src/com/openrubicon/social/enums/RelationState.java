@@ -1,4 +1,4 @@
-package com.openrubicon.social.Enums;
+package com.openrubicon.social.enums;
 
 /**
  * Created by Quinn on 9/30/2017.

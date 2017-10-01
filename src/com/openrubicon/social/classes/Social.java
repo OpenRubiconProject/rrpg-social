@@ -1,6 +1,7 @@
 package com.openrubicon.social.classes;
 
-import com.openrubicon.social.Enums.RelationState;
+import com.openrubicon.core.api.database.interfaces.PostDatabaseLoad;
+import com.openrubicon.social.enums.RelationState;
 import com.openrubicon.social.database.models.Friend;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -9,14 +10,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.Plugin;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * Created by Quinn on 9/23/2017.
- */
-public class Social {
+public class Social implements PostDatabaseLoad {
 
     private HashMap<OfflinePlayer, SocialProfile> socialHash = new HashMap<OfflinePlayer, SocialProfile>();
     private Plugin plugin = null;
@@ -24,6 +21,10 @@ public class Social {
     public Social(Plugin plugin){
         this.plugin = plugin;
         new SocialEventListener();
+    }
+
+    @Override
+    public void run() {
         loadSocialAccounts();
     }
 
