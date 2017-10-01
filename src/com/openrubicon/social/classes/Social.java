@@ -56,7 +56,9 @@ public class Social {
     }
     public void loadSocialAccounts(){
         Friend data = new Friend();
-        List<Friend> resultSet = data.selectAll().executeFetch(Friend.class);
+        data.selectAll();
+        Bukkit.broadcastMessage(data.getSql());
+        List<Friend> resultSet = data.executeFetch(Friend.class);
 
         for(Friend f: resultSet){
             //Consider p1's uuid
