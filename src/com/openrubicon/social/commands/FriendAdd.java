@@ -10,11 +10,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class FriendAdd extends Command {
     @Override
     public String getCommandFormat() {
-        return "friend add $ $";
+        return "friend add $";
     }
 
     @Override
@@ -31,6 +32,11 @@ public class FriendAdd extends Command {
 
         Player thePlayer = (Player) interactable;
         //Check friend list here.
+        if(RRPGSocial.social == null){
+            Bukkit.broadcastMessage("ITS NULL");
+        }
+
+
         SocialProfile s= (SocialProfile) RRPGSocial.social.getHashMap().get((OfflinePlayer)thePlayer.getPlayer());
         if(strings.length == 1){
             s.sendRequest(Bukkit.getPlayer(strings[0]));

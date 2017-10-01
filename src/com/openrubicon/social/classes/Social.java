@@ -56,7 +56,7 @@ public class Social {
     }
     public void loadSocialAccounts(){
         Friend data = new Friend();
-        ArrayList<Friend> resultSet = (ArrayList) data.selectAll().executeFetch(Friend.class);
+        List<Friend> resultSet = data.selectAll().executeFetch(Friend.class);
 
         for(Friend f: resultSet){
             //Consider p1's uuid
@@ -80,9 +80,7 @@ public class Social {
                 s = socialHash.get(p2);
             }
             loadSocialHelper(s, f, p1);
-
         }
-
     }
 
     private void loadSocialHelper(SocialProfile s, Friend f, OfflinePlayer p2){
