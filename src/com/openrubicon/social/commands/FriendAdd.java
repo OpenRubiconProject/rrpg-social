@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class FriendAdd extends Command {
     @Override
     public String getCommandFormat() {
-        return "friend add $";
+        return "friend add $ $";
     }
 
     @Override

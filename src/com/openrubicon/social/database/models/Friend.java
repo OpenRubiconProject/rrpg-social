@@ -8,6 +8,7 @@ import com.openrubicon.social.database.migrations.CreateFriends;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -115,22 +116,11 @@ public class Friend extends DatabaseModel<Friend> {
     }
 
     public Friend selectRelation(){
-        Bukkit.broadcastMessage("id: " + id +
-                "player1_id:" + player1_id +
-                "player2_id: " + player2_id +
-                "bff: " + bff +
-                "state: " + state);
 
         return this.select("*").where("((`player1_id` = :player1_id AND `player2_id` = :player2_id) OR (`player1_id` = :player2_id AND `player2_id` = :player1_id))").executeFetch(Friend.class).get(0);
     }
 
     public boolean insertInto(){
-
-        Bukkit.broadcastMessage("id: " + id +
-                "player1_id:" + player1_id +
-                "player2_id: " + player2_id +
-                "bff: " + bff +
-                "state: " + state);
 
         if (this.count("id").where("((`player1_id` = :player1_id AND `player2_id` = :player2_id) OR (`player1_id` = :player2_id AND `player2_id` = :player1_id))").executeCount() > 0)
             return false;
@@ -151,50 +141,6 @@ public class Friend extends DatabaseModel<Friend> {
         this.update().set("deleted_at", ":deleted_at").where("id = :id").executeUpdate();
         return true;
     }
-
-
-//
-//    public boolean setBestFriend(Connection connection)
-//    {
-//        this.update().set("bff", ":bff").where("deleted_at IS NULL AND ((player1_id = :player1_id AND player2_id = :player2_id) OR (player1_id = :player2_id AND player2_id = :player1_id").executeUpdate();
-//        return true;
-//    }
-//
-//    public boolean removeBestFriend(Connection connection)
-//    {
-//        this.update().set("bff", ":bff").where("deleted_at IS NULL AND ((player1_id = :player1_id AND player2_id = :player2_id) OR (player1_id = :player2_id AND player2_id = :player1_id").executeUpdate();
-//        return true;
-//    }
-//
-//    public boolean removeFriend(Connection connection)
-//    {
-//        this.update().set("deleted_at", ":deleted_at").where()
-//        connection.get().createQuery("DELETE FROM `rubicon_players` WHERE `deleted_at` IS NULL AND ((`player1_id` = :player1_id AND `player2_id` = :player2_id) OR (`player1_id` = :player2_id AND `player2_id` = :player1_id))").bind(this).executeUpdate();
-//        return true;
-//    }
-//
-//    public Friend getFriend(Connection connection)
-//    {
-//        return connection.get().createQuery("SELECT * FROM `rubicon_friends` WHERE (`player1_id` = :player1_id OR `player2_id` = :player2_id) AND `deleted_at` IS NULL").bind(this).executeAndFetch(Friend.class).get(0);
-//    }
-//
-//    public static List<Friend> all(Connection connection)
-//    {
-//        return connection.get().createQuery("SELECT * FROM `rubicon_friends` WHERE `deleted_at` IS NULL").executeAndFetch(Friend.class);
-//    }
-//
-//    public boolean insertFriendRequest(Connection connection){
-//        String query = "INSERT INTO `rubicon_players` (`player1_id`, `player2_id`, `bff`, `state`) VALUES (:player1_id, :player2_id, :bff, :state)";
-//
-//        this.id = (Integer)connection.get().createQuery(query, true).bind(this).executeUpdate().getKey();
-//        return true;
-//    }
-//
-//    public boolean save(Connection connection)
-//    {
-//        connection.get().createQuery("UPDATE `rubicon_players` SET `bff`=:bff, `state`=:state, updated_at=:updated_at, deleted_at=:deleted_at WHERE id=:id").bind(this).executeUpdate();
-//        return true;
-//    }
 
     public HashMap<Integer, DatabaseMigration> getMigrations()
     {

@@ -1,5 +1,7 @@
 package com.openrubicon.social.classes;
 
+import com.openrubicon.social.Enums.RelationState;
+import com.openrubicon.social.database.models.Friend;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.EventHandler;
@@ -7,7 +9,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.Plugin;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Quinn on 9/23/2017.
@@ -51,58 +55,50 @@ public class Social {
         socialHash.put(p, new SocialProfile(p));
     }
     public void loadSocialAccounts(){
-        /*try {
-            ResultSet results = Economics.dbManager.useFriends().selectAll();
-            if(results != null) {
-                while (results.next()) {
-                    //Get data:
-                    String uuid1 = results.getString("uuid1");
-                    String uuid2 = results.getString("uuid2");
-                    Integer bff = results.getInt("bff");
-                    Integer status = results.getInt("status");
+        Friend data = new Friend();
+        ArrayList<Friend> resultSet = (ArrayList) data.selectAll().executeFetch(Friend.class);
 
+        for(Friend f: resultSet){
+            //Consider p1's uuid
+            OfflinePlayer p1 = Bukkit.getPlayer(f.getPlayer1_id());
+            OfflinePlayer p2 = Bukkit.getPlayer(f.getPlayer1_id());
 
-                    //check if user 1 has been loaded.
-                    SocialProfile sp1;
-                    SocialProfile sp2;
-                    if (!socialHash.containsKey(Bukkit.getOfflinePlayer(uuid1))) {
-                        //Create a social profile
-                        sp1 = new SocialProfile(uuid1);
-                        socialHash.put(Bukkit.getOfflinePlayer(results.getString("uuid1")), sp1);
-                    } else {
-                        sp1 = socialHash.get(Bukkit.getOfflinePlayer(uuid1));
-                    }
-                    //check if user 2 has been loaded.
-                    if (!socialHash.containsKey(Bukkit.getOfflinePlayer(results.getString("uuid2")))) {
-                        sp2 = new SocialProfile(uuid2);
-                        socialHash.put(Bukkit.getOfflinePlayer(results.getString("uuid2")), sp2);
-                    } else {
-                        sp2 = socialHash.get(Bukkit.getOfflinePlayer(uuid2));
-                    }
+            SocialProfile s = null;
 
-                    //Update the social profiles.
-                    if (bff == 1) {
-                        if (status == 1) {
-                            sp1.addBestFriend(Bukkit.getOfflinePlayer(uuid2));
-                            sp2.addBestFriend(Bukkit.getOfflinePlayer(uuid1));
-                        } else {
-                            sp1.addBestRequest(Bukkit.getOfflinePlayer(uuid2));
-                            sp2.addBestRequest(Bukkit.getOfflinePlayer(uuid1));
-                        }
-                    } else {
-                        if (status == 1) {
-                            sp1.addFriend(Bukkit.getOfflinePlayer(uuid2));
-                            sp2.addFriend(Bukkit.getOfflinePlayer(uuid1));
-                        } else {
-                            sp1.addRequest(Bukkit.getOfflinePlayer(uuid2));
-                            sp2.addRequest(Bukkit.getOfflinePlayer(uuid1));
-                        }
-                    }
-                }
+            if(socialHash.get(p1) != null){
+                s = socialHash.get(p1);
+            } else {
+                socialHash.put(p1, new SocialProfile(p1));
+                s = socialHash.get(p1);
             }
-        }catch (SQLException e) {
-            e.printStackTrace();
-        }*/
+            loadSocialHelper(s, f, p2);
+
+            if(socialHash.get(p2) != null){
+                s = socialHash.get(p2);
+            } else {
+                socialHash.put(p2, new SocialProfile(p2));
+                s = socialHash.get(p2);
+            }
+            loadSocialHelper(s, f, p1);
+
+        }
+
+    }
+
+    private void loadSocialHelper(SocialProfile s, Friend f, OfflinePlayer p2){
+        if(f.getState() == RelationState.CONFIRMED) {
+            if (f.isBff()) {
+                s.addBestFriend(p2);
+            } else {
+                s.addFriend(p2);
+            }
+        } else if(f.getState() == RelationState.PENDING){
+            if(f.isBff()){
+                s.addBestRequest(p2);
+            } else {
+                s.addRequest(p2);
+            }
+        }
     }
 
 
