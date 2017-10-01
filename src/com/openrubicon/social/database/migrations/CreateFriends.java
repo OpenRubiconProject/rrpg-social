@@ -8,7 +8,7 @@ public class CreateFriends implements DatabaseMigration {
 
     @Override
     public boolean up(Connection connection) {
-        connection.createTable("CREATE TABLE IF NOT EXISTS `rubicon_friends` (\n" +
+        connection.createTable("CREATE TABLE IF NOT EXISTS `rubicon_social_friends` (\n" +
                 " `id` int(11) NOT NULL AUTO_INCREMENT,\n" +
                 " `player1_id` varchar(128) NOT NULL,\n" +
                 " `player2_id` varchar(128) NOT NULL,\n" +

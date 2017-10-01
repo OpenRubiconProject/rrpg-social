@@ -21,7 +21,7 @@ public class Friend extends DatabaseModel<Friend> {
     private Date updated_at;
     private Date deleted_at;
 
-    private String tableName = "rubicon_friends";
+    private String tableName = "rubicon_social_friends";
     private int version = 1;
 
     public Friend() {
