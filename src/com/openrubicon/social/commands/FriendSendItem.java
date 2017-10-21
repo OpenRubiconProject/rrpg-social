@@ -1,9 +1,9 @@
 package com.openrubicon.social.commands;
 
 import com.openrubicon.core.api.command.Command;
-import com.openrubicon.core.api.interactables.Interactable;
 import com.openrubicon.core.api.interactables.Player;
 import com.openrubicon.core.api.interactables.enums.InteractableType;
+import com.openrubicon.core.api.interactables.interfaces.Interactable;
 import com.openrubicon.social.RRPGSocial;
 import com.openrubicon.social.classes.SocialProfile;
 import org.bukkit.Bukkit;
@@ -28,7 +28,7 @@ public class FriendSendItem extends Command {
 
     @Override
     public void handle(Interactable interactable, String[] strings) {
-        if(!(interactable instanceof Player))
+        if (((Player)interactable).getPlayer() != null)
             return;
 
         Player thePlayer = (Player) interactable;

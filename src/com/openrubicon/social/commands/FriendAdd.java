@@ -1,9 +1,9 @@
 package com.openrubicon.social.commands;
 
 import com.openrubicon.core.api.command.Command;
-import com.openrubicon.core.api.interactables.Interactable;
 import com.openrubicon.core.api.interactables.Player;
 import com.openrubicon.core.api.interactables.enums.InteractableType;
+import com.openrubicon.core.api.interactables.interfaces.Interactable;
 import com.openrubicon.social.RRPGSocial;
 import com.openrubicon.social.classes.SocialProfile;
 import org.bukkit.Bukkit;
@@ -15,7 +15,7 @@ import java.util.HashMap;
 public class FriendAdd extends Command {
     @Override
     public String getCommandFormat() {
-        return "friend add $";
+        return "friend add $ $";
     }
 
     @Override
@@ -27,7 +27,11 @@ public class FriendAdd extends Command {
 
     @Override
     public void handle(Interactable interactable, String[] strings) {
-        if(!(interactable instanceof Player))
+        //Args:
+        //[0] = Playername or "best"
+        //[1] Optional playername for best friend
+
+        if (((Player)interactable).getPlayer() != null)
             return;
 
         Player thePlayer = (Player) interactable;

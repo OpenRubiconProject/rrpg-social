@@ -24,7 +24,7 @@ public class CreateFriends implements DatabaseMigration {
 
     @Override
     public boolean down(Connection connection) {
-        connection.dropTable("rubicon_friends");
+        connection.dropTable("rubicon_social_friends");
         return true;
     }
 

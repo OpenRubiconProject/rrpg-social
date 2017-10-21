@@ -11,16 +11,16 @@ commands:
                usage: /rrpg-social
       rrpg friend add <Friend>:
                description: Sends a friend request to the specified player
-               usage: /rrpg friend add <Friend>
+               usage: /rrpg friend add <FriendModel>
       rrpg friend add best <Friend>:
                description: Sends a best friend request to the specified player
-               usage: /rrpg friend add best <Friend>
+               usage: /rrpg friend add best <FriendModel>
       rrpg friend remove <Friend>:
                description: Removes the specified friend from your friend list
-               usage: /rrpg friend remove <Friend>
+               usage: /rrpg friend remove <FriendModel>
       rrpg item send <Friend>:
                description: Sends an item to the specified player.
-               usage: /rrpg friend item send <Friend>
+               usage: /rrpg friend item send <FriendModel>
       rrpg friend list:
                description: Shows your friend list
                usage: /rrpg friend list

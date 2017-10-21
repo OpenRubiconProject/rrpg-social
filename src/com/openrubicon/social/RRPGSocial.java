@@ -9,7 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.openrubicon.core.interfaces.Module;
 
 import com.openrubicon.social.classes.Social;
-import com.openrubicon.social.database.models.Friend;
+import com.openrubicon.social.database.models.FriendModel;
 import java.util.ArrayList;
 
 public class RRPGSocial extends JavaPlugin implements Module {
@@ -64,7 +64,7 @@ public class RRPGSocial extends JavaPlugin implements Module {
     @Override
     public ArrayList<DatabaseModel> getDatabaseModels() {
         ArrayList<DatabaseModel> models = new ArrayList<>();
-        models.add(new Friend());
+        models.add(new FriendModel());
         return models;
     }
 }

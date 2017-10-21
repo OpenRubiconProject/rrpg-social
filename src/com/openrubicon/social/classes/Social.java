@@ -1,8 +1,8 @@
 package com.openrubicon.social.classes;
 
 import com.openrubicon.core.api.database.interfaces.PostDatabaseLoad;
+import com.openrubicon.social.database.models.FriendModel;
 import com.openrubicon.social.enums.RelationState;
-import com.openrubicon.social.database.models.Friend;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.EventHandler;
@@ -56,12 +56,12 @@ public class Social implements PostDatabaseLoad {
         socialHash.put(p, new SocialProfile(p));
     }
     public void loadSocialAccounts(){
-        Friend data = new Friend();
+        FriendModel data = new FriendModel();
         data.selectAll();
         Bukkit.broadcastMessage(data.getSql());
-        List<Friend> resultSet = data.executeFetch(Friend.class);
+        List<FriendModel> resultSet = data.executeFetch(FriendModel.class);
 
-        for(Friend f: resultSet){
+        for(FriendModel f: resultSet){
             //Consider p1's uuid
             OfflinePlayer p1 = Bukkit.getPlayer(f.getPlayer1_id());
             OfflinePlayer p2 = Bukkit.getPlayer(f.getPlayer1_id());
@@ -86,7 +86,7 @@ public class Social implements PostDatabaseLoad {
         }
     }
 
-    private void loadSocialHelper(SocialProfile s, Friend f, OfflinePlayer p2){
+    private void loadSocialHelper(SocialProfile s, FriendModel f, OfflinePlayer p2){
         if(f.getState() == RelationState.CONFIRMED) {
             if (f.isBff()) {
                 s.addBestFriend(p2);

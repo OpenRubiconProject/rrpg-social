@@ -10,7 +10,7 @@ import org.bukkit.OfflinePlayer;
 import java.util.Date;
 import java.util.HashMap;
 
-public class Friend extends DatabaseModel<Friend> {
+public class FriendModel extends DatabaseModel<FriendModel> {
 
     private int id;
     private String player1_id;
@@ -24,10 +24,10 @@ public class Friend extends DatabaseModel<Friend> {
     private String tableName = "rubicon_social_friends";
     private int version = 1;
 
-    public Friend() {
+    public FriendModel() {
     }
 
-    public Friend(OfflinePlayer p1, OfflinePlayer p2, boolean bff, RelationState state){
+    public FriendModel(OfflinePlayer p1, OfflinePlayer p2, boolean bff, RelationState state){
         this.player1_id = p1.getUniqueId().toString();
         this.player2_id = p2.getUniqueId().toString();
         this.bff = bff;
@@ -36,7 +36,7 @@ public class Friend extends DatabaseModel<Friend> {
         this.updated_at = new Date();
     }
 
-    public Friend(Connection connection) {
+    public FriendModel(Connection connection) {
         super(connection);
     }
 
@@ -112,9 +112,9 @@ public class Friend extends DatabaseModel<Friend> {
         this.version = version;
     }
 
-    public Friend selectRelation(){
+    public FriendModel selectRelation(){
 
-        return this.select("*").where("((`player1_id` = :player1_id AND `player2_id` = :player2_id) OR (`player1_id` = :player2_id AND `player2_id` = :player1_id))").executeFetch(Friend.class).get(0);
+        return this.select("*").where("((`player1_id` = :player1_id AND `player2_id` = :player2_id) OR (`player1_id` = :player2_id AND `player2_id` = :player1_id))").executeFetch(FriendModel.class).get(0);
     }
 
     public boolean insertInto(){
