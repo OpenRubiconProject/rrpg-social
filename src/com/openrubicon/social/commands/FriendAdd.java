@@ -41,7 +41,7 @@ public class FriendAdd extends Command {
         }
 
 
-        SocialProfile s= (SocialProfile) RRPGSocial.social.getHashMap().get((OfflinePlayer)thePlayer.getPlayer());
+        SocialProfile s= (SocialProfile) RRPGSocial.social.getProfile((OfflinePlayer)thePlayer.getPlayer());
         if(strings.length == 1){
             s.sendRequest(Bukkit.getPlayer(strings[0]));
         } else if (strings.length == 2) {

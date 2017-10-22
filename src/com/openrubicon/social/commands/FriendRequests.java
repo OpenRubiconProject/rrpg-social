@@ -32,7 +32,7 @@ public class FriendRequests extends Command {
 
         Player thePlayer = (Player) interactable;
 
-        SocialProfile s= (SocialProfile) RRPGSocial.social.getHashMap().get(thePlayer.getPlayer());
+        SocialProfile s= (SocialProfile) RRPGSocial.social.getProfile(thePlayer.getPlayer());
         s.listRequests();
     }
 }

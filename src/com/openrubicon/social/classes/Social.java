@@ -46,8 +46,8 @@ public class Social implements PostDatabaseLoad {
         }
     }
 
-    public HashMap<OfflinePlayer, SocialProfile> getHashMap(){
-        return socialHash;
+    public SocialProfile getProfile(OfflinePlayer p){
+        return socialHash.get(p);
     }
     public boolean hasAccount(OfflinePlayer p){
         return socialHash.containsKey(p) ? true : false;

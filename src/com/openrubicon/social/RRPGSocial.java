@@ -11,6 +11,7 @@ import com.openrubicon.core.interfaces.Module;
 import com.openrubicon.social.classes.Social;
 import com.openrubicon.social.database.models.FriendModel;
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 
 public class RRPGSocial extends JavaPlugin implements Module {
 

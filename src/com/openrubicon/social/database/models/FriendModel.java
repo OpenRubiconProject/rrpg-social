@@ -112,11 +112,19 @@ public class FriendModel extends DatabaseModel<FriendModel> {
         this.version = version;
     }
 
+    /**
+     * Gets the relationship between the two players of the model
+     * @return
+     */
     public FriendModel selectRelation(){
 
         return this.select("*").where("((`player1_id` = :player1_id AND `player2_id` = :player2_id) OR (`player1_id` = :player2_id AND `player2_id` = :player1_id))").executeFetch(FriendModel.class).get(0);
     }
 
+    /**
+     * Inserts the relationship as a new entry into the database
+     * @return true
+     */
     public boolean insertInto(){
 
         if (this.count("id").where("((`player1_id` = :player1_id AND `player2_id` = :player2_id) OR (`player1_id` = :player2_id AND `player2_id` = :player1_id))").executeCount() > 0)
@@ -127,12 +135,20 @@ public class FriendModel extends DatabaseModel<FriendModel> {
         }
     }
 
+    /**
+     * Updates the state of the relationship
+     * @return true
+     */
     public boolean updateState(){
         this.updated_at = new Date();
         this.update().set("state", ":state").andSet("updated_at", ":updated_at").where("id = :id").executeUpdate();
         return true;
     }
 
+    /**
+     * Removes the relationship from the database
+     * @return true
+     */
     public boolean remove(){
         this.deleted_at = new Date();
         this.update().set("deleted_at", ":deleted_at").where("id = :id").executeUpdate();

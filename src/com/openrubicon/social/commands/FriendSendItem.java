@@ -34,7 +34,7 @@ public class FriendSendItem extends Command {
         Player thePlayer = (Player) interactable;
 
 
-        SocialProfile s= (SocialProfile) RRPGSocial.social.getHashMap().get(thePlayer.getPlayer());
+        SocialProfile s= (SocialProfile) RRPGSocial.social.getProfile(thePlayer.getPlayer());
         if(strings.length == 1) {
             if(Bukkit.getPlayer(strings[0]).isOnline()) {
                 s.sendItem(Bukkit.getPlayer(strings[0]));

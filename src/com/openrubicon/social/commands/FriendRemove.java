@@ -33,7 +33,7 @@ public class FriendRemove extends Command {
 
         Player thePlayer = (Player) interactable;
 
-        SocialProfile s= (SocialProfile) RRPGSocial.social.getHashMap().get(thePlayer.getPlayer());
+        SocialProfile s= (SocialProfile) RRPGSocial.social.getProfile(thePlayer.getPlayer());
         if(strings.length == 1){
             s.remove(Bukkit.getPlayer(strings[0]));
         } else {
