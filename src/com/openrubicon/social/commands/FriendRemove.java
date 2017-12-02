@@ -4,15 +4,13 @@ import com.openrubicon.core.api.command.Command;
 import com.openrubicon.core.api.interactables.Player;
 import com.openrubicon.core.api.interactables.enums.InteractableType;
 import com.openrubicon.core.api.interactables.interfaces.Interactable;
+import com.openrubicon.core.api.utility.DynamicPrimitive;
 import com.openrubicon.social.RRPGSocial;
 import com.openrubicon.social.classes.SocialProfile;
 import org.bukkit.Bukkit;
 
 import java.util.ArrayList;
 
-/**
- * Created by Quinn on 9/30/2017.
- */
 public class FriendRemove extends Command {
     @Override
     public String getCommandFormat() {
@@ -27,15 +25,15 @@ public class FriendRemove extends Command {
     }
 
     @Override
-    public void handle(Interactable interactable, String[] strings) {
+    public void handle(Interactable interactable, ArrayList<DynamicPrimitive> args) {
         if (((Player)interactable).getPlayer() != null)
             return;
 
         Player thePlayer = (Player) interactable;
 
         SocialProfile s= (SocialProfile) RRPGSocial.social.getProfile(thePlayer.getPlayer());
-        if(strings.length == 1){
-            s.remove(Bukkit.getPlayer(strings[0]));
+        if(args.size() == 1){
+            s.remove(Bukkit.getPlayer(args.get(0).getString()));
         } else {
             thePlayer.getPlayer().sendMessage("Incorrect usage for /friend remove");
         }

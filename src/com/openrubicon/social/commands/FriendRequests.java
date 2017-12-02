@@ -4,14 +4,13 @@ import com.openrubicon.core.api.command.Command;
 import com.openrubicon.core.api.interactables.Player;
 import com.openrubicon.core.api.interactables.enums.InteractableType;
 import com.openrubicon.core.api.interactables.interfaces.Interactable;
+import com.openrubicon.core.api.utility.DynamicPrimitive;
 import com.openrubicon.social.RRPGSocial;
 import com.openrubicon.social.classes.SocialProfile;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-/**
- * Created by Quinn on 9/30/2017.
- */
 public class FriendRequests extends Command {
     @Override
     public String getCommandFormat() {
@@ -26,7 +25,7 @@ public class FriendRequests extends Command {
     }
 
     @Override
-    public void handle(Interactable interactable, String[] strings) {
+    public void handle(Interactable interactable, ArrayList<DynamicPrimitive> args) {
         if (((Player)interactable).getPlayer() != null)
             return;
 
